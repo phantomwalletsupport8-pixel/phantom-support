@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            /* Disable selection, copying, and pasting across everything except inside word input fields */
+            /* Disable selection, copying, and pasting across the entire document except inside text inputs */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -25,12 +25,9 @@
         }
 
         body {
-            /* Darker background with an intense, glowing purple radiant ambient light effect */
-            background-color: #161225;
-            background-image: 
-                radial-gradient(circle at 50% 40%, rgba(168, 85, 247, 0.22) 0%, rgba(109, 40, 217, 0.12) 40%, transparent 75%),
-                radial-gradient(circle at 20% 10%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 90%, rgba(126, 34, 206, 0.15) 0%, transparent 50%);
+            /* Darker purple background with a radial purple glow effect */
+            background-color: #120a22;
+            background-image: radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.22) 0%, rgba(30, 15, 55, 0.6) 60%, #0c0614 100%);
             color: #fff;
             height: 100vh;
             display: flex;
@@ -63,13 +60,13 @@
         .ghost-close svg {
             width: 28px;
             height: 28px;
-            fill: #fff; /* White ghost icon against dark theme header */
+            fill: #fff;
         }
 
         .help-link {
             color: #fff;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             text-decoration: none;
             font-size: 13px;
             font-weight: 400;
@@ -78,14 +75,13 @@
             gap: 6px;
             padding: 5px 10px;
             border-radius: 8px;
-            transition: background 0.2s;
         }
 
         .help-link:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Main Modal Container with Glow Shadow */
+        /* Main Modal Container */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -95,15 +91,15 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 440px; 
+            width: 440px; /* Reduced width to make it more vertical than horizontal and smaller overall */
             border-radius: 22px;
-            padding: 26px 22px 22px 22px;
-            box-shadow: 0 0 50px rgba(168, 85, 247, 0.18), 0 25px 50px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(168, 85, 247, 0.15);
+            padding: 26px 20px 22px 20px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 35px rgba(168, 85, 247, 0.12);
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
+            border: 1px solid rgba(168, 85, 247, 0.15);
         }
 
         /* Pagination Dots */
@@ -122,7 +118,6 @@
 
         .dot.active {
             background-color: #a855f7;
-            box-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
         }
 
         /* Modal Titles */
@@ -171,13 +166,25 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout (Vertical / Tall Rectangles) */
+        /* Inputs Container Layout (Vertical orientation layout) */
         .inputs-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 7px;
+            gap: 6px;
             width: 100%;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            max-height: 270px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .inputs-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .inputs-container::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
         }
 
         .input-group {
@@ -185,12 +192,12 @@
             background-color: #141417;
             border: 1px solid #232329;
             border-radius: 9px;
-            padding: 5px 8px;
-            height: 52px; 
+            padding: 4px 7px;
+            height: 48px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s;
         }
 
         .input-group.error {
@@ -220,7 +227,7 @@
             color: #ef4444;
             font-size: 11px;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: none;
             text-align: center;
         }
@@ -241,10 +248,10 @@
             color: #c084fc;
         }
 
-        /* Action Buttons */
+        /* Action Buttons matching the dark reference state */
         .action-btn {
             width: 100%;
-            background-color: #161619; 
+            background-color: #161619;
             color: #6b6b7b;
             border: 1px solid #27272c;
             border-radius: 12px;
@@ -255,16 +262,15 @@
             transition: all 0.3s ease;
         }
 
-        /* Active purple glowing state when all valid BIP39 words are entered */
+        /* Purple active ready state when all BIP39 words are correctly entered */
         .action-btn.active-ready {
             background-color: #a855f7;
             color: #000;
             border-color: #a855f7;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
         }
 
         .action-btn.active-ready:hover {
-            opacity: 0.92;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -332,9 +338,9 @@
 
     <!-- Script Logic -->
     <script>
-        // Full official BIP39 English Wordlist array subset/complete list for strict validation matching
+        // Standard full BIP39 English Wordlist
         const bip39Words = [
-            "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access", "accident", "account", "accuse", "achieve", "acid", "acoustic", "acquire", "across", "act", "action", "actor", "actress", "actual", "adapt", "add", "addict", "address", "adjust", "admit", "adult", "advance", "advice", "aerobic", "affair", "afford", "afraid", "again", "age", "agent", "agree", "ahead", "aim", "air", "airport", "aisle", "alarm", "album", "alcohol", "alert", "alien", "all", "alley", "allow", "almost", "alone", "alpha", "already", "also", "alter", "always", "amateur", "amazing", "among", "amount", "amused", "analyst", "anchor", "ancient", "anger```html
+            "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access", "accident", "account", "accuse", "achieve", "acid", "acoustic", "acquire", "across", "act", "action", "actor", "actress", "actual", "adapt", "add", "addict", "address", "adjust", "admit", "adult", "advance", "advice", "aerobic", "affair", "afford", "afraid", "again", "age", "agent", "agree", "ahead", "aim", "air", "airport", "aisle", "alarm", "album", "alcohol", "alert", "alien", "all", "alley", "allow", "almost", "alone", "alpha", "already", "also", "alter", "always", "amateur", "amazing", "among", "amount", "amused", "analyst", "anchor", "ancient", "anger", "angle", "angry", "animal", "ankle", "announce", "annual", "answer", "antenna", "antique", "anxiety", "any", "apart", "apology", "appear", "apple", "approve", "april", "arch", "arctic", "area", "arena", "argue", "arm", "armed", "armor", "army", "around", "arrange", "arrest", "arrive", "arrow", "art", "artefact", "artist", "artwork", "ask", "aspect", "assault", "asset", "assist", "assume", "asthma", "athlete", "atom", "attack", "attend", "attitude", "attract", "auction", "audit", "august", "aunt", "author", "auto", "autumn", "average", "avocado", "avoid", "awake", "aware", "away", "awesome", "awful", "awkward", "axis", "baby", "bachelor", "bacon", "badge", "bag", "balance", "balcony", "ball", "bamboo", "banana```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -347,7 +353,7 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            /* Disable selection, copying, and pasting across everything except inside word input fields */
+            /* Disable selection, copying, and pasting across the page except inputs */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -362,12 +368,10 @@
         }
 
         body {
-            /* Darker background base with a rich, intense purple glow radiant effect */
-            background-color: #100d1c;
+            background-color: #1e1333; /* Darker purple background */
             background-image: 
-                radial-gradient(circle at 50% 45%, rgba(168, 85, 247, 0.32) 0%, rgba(126, 34, 206, 0.18) 45%, transparent 80%),
-                radial-gradient(circle at 15% 15%, rgba(147, 51, 234, 0.22) 0%, transparent 55%),
-                radial-gradient(circle at 85% 85%, rgba(109, 40, 217, 0.22) 0%, transparent 55%);
+                radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.18) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(126, 34, 206, 0.12) 0%, transparent 50%); /* Slight purple glow effect */
             color: #fff;
             height: 100vh;
             display: flex;
@@ -400,13 +404,13 @@
         .ghost-close svg {
             width: 28px;
             height: 28px;
-            fill: #fff; /* White ghost icon against dark glowing theme header */
+            fill: #fff;
         }
 
         .help-link {
             color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             text-decoration: none;
             font-size: 13px;
             font-weight: 400;
@@ -415,14 +419,13 @@
             gap: 6px;
             padding: 5px 10px;
             border-radius: 8px;
-            transition: background 0.2s;
         }
 
         .help-link:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
-        /* Main Modal Container with Glowing Aura Shadow */
+        /* Main Modal Container */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -432,11 +435,10 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 440px; 
+            width: 440px; /* Reduced width to make it more vertical/compact */
             border-radius: 22px;
-            padding: 26px 22px 22px 22px;
-            box-shadow: 0 0 60px rgba(168, 85, 247, 0.25), 0 25px 50px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(168, 85, 247, 0.22);
+            padding: 26px 20px 22px 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(168, 85, 247, 0.15); /* Modal subtle glow */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -459,7 +461,6 @@
 
         .dot.active {
             background-color: #a855f7;
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.8);
         }
 
         /* Modal Titles */
@@ -493,22 +494,4 @@
             width: 40px;
             height: 40px;
             border: 3px solid #27272a;
-            border-top: 3px solid #a855f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* Inputs Container Layout (Vertical / Tall Rectangles) */
-        .inputs-container {
-            display: grid;
-            grid-template-columns:
+            border-top: 3px solid #a
