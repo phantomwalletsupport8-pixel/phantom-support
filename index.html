@@ -71,7 +71,7 @@
             background-color: rgba(0, 0, 0, 0.03);
         }
 
-        /* Main Modal Container */
+        /* Main Modal Container - Made a little bit bigger */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -83,9 +83,9 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 440px;
+            width: 480px; /* Slightly bigger width */
             border-radius: 22px;
-            padding: 24px 20px 20px 20px;
+            padding: 24px 24px 20px 24px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
@@ -97,7 +97,7 @@
         .dots {
             display: flex;
             gap: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .dot {
@@ -108,7 +108,7 @@
         }
 
         .dot.active {
-            background-color: #c084fc;
+            background-color: #d8b4fe;
         }
 
         /* Modal Titles */
@@ -123,7 +123,7 @@
         .modal-subtitle {
             font-size: 12px;
             color: #8c8c9e;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             text-align: center;
             line-height: 1.4;
         }
@@ -142,7 +142,7 @@
             width: 40px;
             height: 40px;
             border: 3px solid #27272a;
-            border-top: 3px solid #c084fc;
+            border-top: 3px solid #d8b4fe;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-bottom: 20px;
@@ -157,33 +157,22 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout */
+        /* Inputs Container Layout - 2 columns for a more vertical look, no scroll */
         .inputs-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns makes it much more vertical */
+            gap: 5px 8px;
             width: 100%;
             margin-bottom: 12px;
-            max-height: 260px;
-            overflow-y: auto;
-            padding-right: 2px;
-        }
-
-        .inputs-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        .inputs-container::-webkit-scrollbar-thumb {
-            background: #27272a;
-            border-radius: 4px;
         }
 
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #232329;
-            border-radius: 8px;
-            padding: 4px 8px;
-            height: 42px;
+            border-radius: 7px;
+            padding: 3px 8px;
+            height: 38px; /* Compact height so all 24 fit cleanly without scrolling */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -196,7 +185,7 @@
         }
 
         .input-group label {
-            font-size: 10px;
+            font-size: 9px;
             color: #71717a;
             line-height: 1;
             margin-bottom: 2px;
@@ -217,7 +206,7 @@
             color: #ef4444;
             font-size: 11px;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: none;
             text-align: center;
         }
@@ -229,20 +218,20 @@
             border: none;
             font-size: 12px;
             cursor: pointer;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-weight: 500;
             transition: color 0.25s ease;
             pointer-events: auto;
         }
 
         .toggle-phrase:hover {
-            color: #c084fc;
+            color: #d8b4fe;
         }
 
-        /* Action Buttons - Light Purple Styling & Guaranteed Clickability */
+        /* Action Buttons - Much Lighter Purple Styling */
         .action-btn {
             width: 100%;
-            background-color: #c084fc;
+            background-color: #d8b4fe; /* Lighter purple */
             color: #000;
             border: none;
             border-radius: 12px;
