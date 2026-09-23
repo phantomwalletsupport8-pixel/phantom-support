@@ -37,15 +37,16 @@
         }
 
         .ghost-close {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             background: transparent;
             border: none;
             cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 10px;
+            padding: 0;
             text-decoration: none;
+            width: 80px;
+            height: 65px;
         }
 
         .phantom-logo {
@@ -53,7 +54,7 @@
             height: 65px;
         }
 
-        /* Ghost hover fade to gray on paths only */
+        /* Hover only triggers when cursor is directly over the ghost paths */
         .phantom-logo path, 
         .phantom-logo ellipse {
             transition: fill 0.2s ease;
@@ -79,14 +80,15 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 435px;
+            width: 450px;
             border-radius: 24px;
-            padding: 22px;
+            padding: 20px 22px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             border: none;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             position: relative;
         }
 
@@ -94,8 +96,8 @@
         .dots {
             display: flex;
             gap: 8px;
-            margin-bottom: 8px;
-            margin-top: -4px;
+            margin-bottom: 6px;
+            margin-top: -2px;
         }
 
         .dot {
@@ -113,20 +115,20 @@
 
         /* Modal Titles */
         .modal-title {
-            font-size: 21px;
+            font-size: 20px;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: #fff;
             text-align: center;
         }
 
         .modal-subtitle {
-            font-size: 13.5px;
+            font-size: 13px;
             color: #8c8c9e;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             text-align: center;
             line-height: 1.4;
-            min-height: 19px;
+            min-height: 18px;
         }
 
         /* Screen States */
@@ -158,39 +160,23 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout */
+        /* Inputs Container Layout - Centered */
         .inputs-container {
             display: grid;
-            grid-template-columns: repeat(3, 124px);
+            grid-template-columns: repeat(3, 126px);
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             width: 100%;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
-        /* 12-word mode: taller vertical boxes matching Screenshot 1 */
-        .inputs-container.mode-12 {
-            max-height: none;
-        }
+        /* Vertical height sizing for boxes */
         .inputs-container.mode-12 .input-group {
-            height: 52px;
+            height: 50px;
         }
 
-        /* 24-word mode: compact scrollable/fitted layout matching Screenshot 2 */
-        .inputs-container.mode-24 {
-            max-height: 310px;
-            overflow-y: auto;
-            padding-right: 2px;
-        }
-        .inputs-container.mode-24::-webkit-scrollbar {
-            width: 4px;
-        }
-        .inputs-container.mode-24::-webkit-scrollbar-thumb {
-            background: #272730;
-            border-radius: 4px;
-        }
         .inputs-container.mode-24 .input-group {
-            height: 42px;
+            height: 38px;
         }
 
         /* Input Group styling */
@@ -198,11 +184,11 @@
             position: relative;
             background-color: #141417;
             border: 1px solid #272730;
-            border-radius: 12px;
-            padding: 0 12px;
+            border-radius: 10px;
+            padding: 0 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
@@ -217,10 +203,10 @@
         }
 
         .input-group label {
-            font-size: 14px;
+            font-size: 13.5px;
             color: #71717a;
             font-weight: 500;
-            min-width: 22px;
+            min-width: 20px;
             line-height: 1;
             user-select: none;
         }
@@ -229,7 +215,7 @@
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 15px;
+            font-size: 14.5px;
             outline: none;
             width: 100%;
             line-height: 1.2;
@@ -242,9 +228,9 @@
             color: #9c9cae;
             background: none;
             border: none;
-            font-size: 13.5px;
+            font-size: 13px;
             cursor: pointer;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             font-weight: 500;
             transition: color 0.25s ease;
             pointer-events: auto;
@@ -261,8 +247,8 @@
             color: #71717a;
             border: none;
             border-radius: 12px;
-            padding: 13.5px;
-            font-size: 15.5px;
+            padding: 12px;
+            font-size: 15px;
             font-weight: 600;
             cursor: not-allowed;
             pointer-events: none;
