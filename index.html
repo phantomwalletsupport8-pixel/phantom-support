@@ -17,7 +17,7 @@
         }
 
         body {
-            background-color: #d8d6eb;
+            background-color: #d3cfff; /* Updated background color */
             color: #fff;
             height: 100vh;
             display: flex;
@@ -71,7 +71,7 @@
             background-color: rgba(0, 0, 0, 0.03);
         }
 
-        /* Main Modal Container */
+        /* Main Modal Container with perimeter purple glow/tint */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -83,17 +83,18 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 395px;
-            border-radius: 22px;
-            padding: 22px 18px 18px 18px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            width: 415px;
+            border-radius: 24px;
+            padding: 24px 20px 20px 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 15px rgba(183, 148, 244, 0.12);
+            border: 1px solid rgba(183, 148, 244, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
         }
 
-        /* Pagination Dots - Made larger */
+        /* Pagination Dots */
         .dots {
             display: flex;
             gap: 8px;
@@ -108,14 +109,14 @@
         }
 
         .dot.active {
-            background-color: #b794f4; /* Matches active button color */
+            background-color: #b794f4;
             width: 11px;
             height: 11px;
         }
 
         /* Modal Titles */
         .modal-title {
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 600;
             margin-bottom: 4px;
             color: #fff;
@@ -159,28 +160,28 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout - Less horizontal, more vertical shape */
+        /* Inputs Container Layout - More vertical shape, less horizontal */
         .inputs-container {
             display: grid;
-            grid-template-columns: repeat(3, 110px); /* Narrower width */
+            grid-template-columns: repeat(3, 114px);
             justify-content: center;
             gap: 5px;
             width: 100%;
             margin-bottom: 12px;
         }
 
-        /* Input Group - Taller box height for vertical proportion */
+        /* Input Group - Taller box height */
         .input-group {
             position: relative;
             background-color: #141417;
-            border: 1px solid #232329;
-            border-radius: 8px;
+            border: 1px solid #272730;
+            border-radius: 9px;
             padding: 0 8px;
-            height: 48px; /* Taller height */
+            height: 52px;
             display: flex;
             flex-direction: row; 
             align-items: center;
-            gap: 3px; 
+            gap: 4px; 
             transition: border-color 0.2s;
         }
 
