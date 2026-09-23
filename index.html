@@ -83,9 +83,9 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 420px;
+            width: 390px;
             border-radius: 22px;
-            padding: 24px 20px 20px 20px;
+            padding: 22px 18px 18px 18px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
@@ -97,7 +97,7 @@
         .dots {
             display: flex;
             gap: 6px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .dot {
@@ -123,7 +123,7 @@
         .modal-subtitle {
             font-size: 12px;
             color: #8c8c9e;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             text-align: center;
             line-height: 1.4;
         }
@@ -157,14 +157,14 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout - Less wide, compact vertical size */
+        /* Inputs Container Layout - More vertical shape, 3 columns, narrower width */
         .inputs-container {
             display: grid;
-            grid-template-columns: repeat(3, 122px); /* Controls box width strictly */
+            grid-template-columns: repeat(3, 110px); /* Narrower width for vertical feel */
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
             width: 100%;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .input-group {
@@ -172,8 +172,8 @@
             background-color: #141417;
             border: 1px solid #232329;
             border-radius: 8px;
-            padding: 4px 8px;
-            height: 38px; /* Keeps original comfortable vertical height */
+            padding: 5px 8px;
+            height: 40px; /* Taller vertical proportion */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -181,10 +181,11 @@
         }
 
         .input-group label {
-            font-size: 9px;
-            color: #71717a;
+            font-size: 11px; /* Larger number font */
+            color: #a1a1aa;  /* Lighter gray */
             line-height: 1;
             margin-bottom: 2px;
+            font-weight: 500;
         }
 
         .input-group input {
@@ -206,7 +207,7 @@
             border: none;
             font-size: 12px;
             cursor: pointer;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-weight: 500;
             transition: color 0.25s ease;
             pointer-events: auto;
@@ -233,7 +234,7 @@
 
         /* Active state when all inputs are filled */
         .action-btn.active-btn {
-            background-color: #b794f4; /* Slightly darker purple look matching image */
+            background-color: #b794f4; /* Slightly darker purple look */
             color: #000;
             cursor: pointer;
             pointer-events: auto;
