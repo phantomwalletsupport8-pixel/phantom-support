@@ -180,7 +180,13 @@
             flex-direction: row; 
             align-items: center;
             gap: 5px; 
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        /* Focused input group outline state */
+        .input-group:focus-within {
+            border-color: #c5bfff;
+            box-shadow: 0 0 0 1px #c5bfff;
         }
 
         .input-group label {
