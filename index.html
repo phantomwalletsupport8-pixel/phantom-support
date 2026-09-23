@@ -83,7 +83,7 @@
 
         .modal {
             background-color: #0c0c0e;
-            width: 410px;
+            width: 395px;
             border-radius: 22px;
             padding: 22px 18px 18px 18px;
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
@@ -93,7 +93,7 @@
             position: relative;
         }
 
-        /* Pagination Dots - Larger and matching button color */
+        /* Pagination Dots - Made larger */
         .dots {
             display: flex;
             gap: 8px;
@@ -101,16 +101,16 @@
         }
 
         .dot {
-            width: 8px;
-            height: 8px;
+            width: 10px;
+            height: 10px;
             background-color: #3f3f46;
             border-radius: 50%;
         }
 
         .dot.active {
             background-color: #b794f4; /* Matches active button color */
-            width: 9px;
-            height: 9px;
+            width: 11px;
+            height: 11px;
         }
 
         /* Modal Titles */
@@ -159,28 +159,28 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout */
+        /* Inputs Container Layout - Less horizontal, more vertical shape */
         .inputs-container {
             display: grid;
-            grid-template-columns: repeat(3, 118px); 
+            grid-template-columns: repeat(3, 110px); /* Narrower width */
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
             width: 100%;
             margin-bottom: 12px;
         }
 
-        /* Input Group - Closer gap between number and text */
+        /* Input Group - Taller box height for vertical proportion */
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #232329;
             border-radius: 8px;
             padding: 0 8px;
-            height: 45px;
+            height: 48px; /* Taller height */
             display: flex;
             flex-direction: row; 
             align-items: center;
-            gap: 3px; /* Closer to the number */
+            gap: 3px; 
             transition: border-color 0.2s;
         }
 
@@ -197,7 +197,7 @@
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 15px; /* Larger typed letters */
+            font-size: 15px; 
             outline: none;
             width: 100%;
             line-height: 1.2;
