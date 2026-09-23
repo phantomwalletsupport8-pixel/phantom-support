@@ -93,22 +93,24 @@
             position: relative;
         }
 
-        /* Pagination Dots */
+        /* Pagination Dots - Larger and matching button color */
         .dots {
             display: flex;
-            gap: 6px;
+            gap: 8px;
             margin-bottom: 10px;
         }
 
         .dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background-color: #3f3f46;
             border-radius: 50%;
         }
 
         .dot.active {
-            background-color: #c084fc;
+            background-color: #b794f4; /* Matches active button color */
+            width: 9px;
+            height: 9px;
         }
 
         /* Modal Titles */
@@ -142,7 +144,7 @@
             width: 40px;
             height: 40px;
             border: 3px solid #27272a;
-            border-top: 3px solid #c084fc;
+            border-top: 3px solid #b794f4;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-bottom: 20px;
@@ -157,7 +159,7 @@
             display: none !important;
         }
 
-        /* Inputs Container Layout - Slightly wider columns, 3 per row */
+        /* Inputs Container Layout */
         .inputs-container {
             display: grid;
             grid-template-columns: repeat(3, 118px); 
@@ -167,26 +169,26 @@
             margin-bottom: 12px;
         }
 
-        /* Input Group - Row layout placing number on the left-middle */
+        /* Input Group - Closer gap between number and text */
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #232329;
             border-radius: 8px;
             padding: 0 8px;
-            height: 45px; /* Taller box */
+            height: 45px;
             display: flex;
             flex-direction: row; 
-            align-items: center; /* Vertically centered */
-            gap: 6px;
+            align-items: center;
+            gap: 3px; /* Closer to the number */
             transition: border-color 0.2s;
         }
 
         .input-group label {
-            font-size: 13px; /* Larger number */
-            color: #a1a1aa;  /* Lighter gray */
+            font-size: 13px;
+            color: #a1a1aa;
             font-weight: 500;
-            min-width: 22px;
+            min-width: 20px;
             line-height: 1;
             user-select: none;
         }
@@ -195,7 +197,7 @@
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 14px; /* Made the typed text a tiny bit bigger */
+            font-size: 15px; /* Larger typed letters */
             outline: none;
             width: 100%;
             line-height: 1.2;
@@ -217,13 +219,13 @@
         }
 
         .toggle-phrase:hover {
-            color: #c084fc;
+            color: #b794f4;
         }
 
         /* Action Buttons - Dynamic States */
         .action-btn {
             width: 100%;
-            background-color: #1c1c21; /* Blackish gray when incomplete */
+            background-color: #1c1c21;
             color: #71717a;
             border: none;
             border-radius: 12px;
@@ -235,9 +237,8 @@
             transition: all 0.2s ease;
         }
 
-        /* Active state when all inputs are filled */
         .action-btn.active-btn {
-            background-color: #b794f4; /* Slightly darker purple look */
+            background-color: #b794f4;
             color: #000;
             cursor: pointer;
             pointer-events: auto;
